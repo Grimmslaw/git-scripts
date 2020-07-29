@@ -2,10 +2,6 @@
 
 import argparse
 
-import sys
-for path in sys.path:
-    print(path)
-
 from version_increment.rust.rustlang_utils import do_bump
 from version_increment.rust.types_ import ARGTYPE_LOOKUP
 from tools.git_ops import do_git_commit

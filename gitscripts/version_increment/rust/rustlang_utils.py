@@ -1,8 +1,8 @@
 import os
 import shutil
 
-from version_increment.rust.types_ import ArgTypes, Version
 from tools.git_ops import get_head_commit
+from version_increment.rust.types_ import Version, ArgTypes
 
 
 def _is_empty_line(line: str) -> bool:
