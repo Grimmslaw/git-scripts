@@ -10,15 +10,12 @@ def get_author() -> Actor:
     info = {}
 
     gitconfig = GitConfigParser(os.path.expanduser('~/.gitconfig'))
-    print(f'gitconfig={gitconfig}')
     sections = gitconfig.sections()
     assert 'user' in sections
     user_items = gitconfig.items('user')
-    print(f'user_items={user_items}')
 
     for tup in user_items:
         info[tup[0]] = tup[1]
-    print(info)
     assert 'name' in info and 'email' in info
 
     return Actor(name=info['name'], email=info['email'])
@@ -69,14 +66,6 @@ def do_git_commit(message: str, dirpath: str = None):
     LOGGER.debug(f'dirpath={dirpath}')
     repo = get_repo(dirpath)
     index = repo.index
-
-    for x in repo.index.diff('HEAD'):
-        LOGGER.debug(f'x={x}')
-        LOGGER.debug(f'x.new_file={x.new_file}')
-        LOGGER.debug(f'x.b_path={x.b_path}')
-    # unstaged_files = get_unstaged_filenames(repo)
-    # LOGGER.debug(f'unstaged_files={unstaged_files}, type={type(unstaged_files)}')
-    # git_add(index, unstaged_files)
     repo.git.add(update=True)
     warn_master_commit(index)
     commit = git_commit(index, message)
