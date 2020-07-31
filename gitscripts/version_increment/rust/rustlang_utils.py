@@ -7,7 +7,7 @@ import in_place
 
 from tools.git_ops import get_head_commit
 from version_increment.tools.types_ import Version
-from version_increment.rust.general_utils import safe_strip
+from version_increment.rust.general_utils import safe_strip, str_is_empty
 
 LOGGER = logging.getLogger(__name__)
 
@@ -31,17 +31,19 @@ def _parse_version_number(version: str) -> Version:
     return Version.instance(safe_strip(major), safe_strip(minor), safe_strip(patch), safe_strip(alpha))
 
 
-def get_toml_path(dirpath: str = None) -> str:
-    LOGGER.debug(f'dirpath={dirpath}')
-    head_commit = get_head_commit(dirpath) if dirpath is not None else get_head_commit(__file__)
+def get_toml_path(dirname: str = None) -> str:
+    LOGGER.debug(f'dirpath={dirname}')
+    dirpath = dirname if not str_is_empty(dirname) else __file__
+    head_commit = get_head_commit(dirpath)
     tree = head_commit.tree
-    files = [x.path for x in tree]
-    return os.path.abspath(files[files.index('Cargo.toml')])
+    files = [os.path.join(dirpath, x.path) for x in tree]
+    LOGGER.debug(f'files={files}')
+    return files[files.index(os.path.join(dirpath, 'Cargo.toml'))]
 
 
 def parse_toml(toml_path: str) -> Tuple[int, Version]:
     LOGGER.debug(f'toml_path={toml_path}')
-    assert os.path.isfile(toml_path)
+    assert os.path.isfile(toml_path), f'Not a file: {toml_path}'
     lineno = -1
     with open(toml_path, 'r') as toml:
         for line in toml:
@@ -66,8 +68,9 @@ def write_new_version(new_version: str, toml_path: str):
 
 
 def do_bump(bump_func: FunctionType, dirpath: str = None) -> Version:
-    LOGGER.debug(f'dirpath={dirpath}')
+    LOGGER.debug(f'do_bump: dirpath={dirpath}')
     toml_path = get_toml_path(dirpath)
+    LOGGER.debug(f'do_bump: toml_path={toml_path}')
     lineno, old_version = parse_toml(toml_path)
 
     LOGGER.debug(f'version={old_version}')

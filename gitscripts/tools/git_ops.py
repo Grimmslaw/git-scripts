@@ -11,12 +11,12 @@ def get_author() -> Actor:
 
     gitconfig = GitConfigParser(os.path.expanduser('~/.gitconfig'))
     sections = gitconfig.sections()
-    assert 'user' in sections
+    assert 'user' in sections, f'No "user" field in .gitconfig'
     user_items = gitconfig.items('user')
 
     for tup in user_items:
         info[tup[0]] = tup[1]
-    assert 'name' in info and 'email' in info
+    assert 'name' in info and 'email' in info, f'Incomplete information (name and/or email) in .gitconfig'
 
     return Actor(name=info['name'], email=info['email'])
 
@@ -34,8 +34,7 @@ def get_repo(repo_filepath: str = None) -> Repo:
 
 def get_head_commit(filepath: str):
     LOGGER.debug(f'filepath={filepath}')
-    repo_path = os.path.abspath(filepath)
-    repo = Repo(repo_path)
+    repo = Repo(filepath)
 
     return repo.head.commit
 

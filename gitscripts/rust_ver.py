@@ -4,7 +4,7 @@ import os
 import argparse
 import logging
 
-from version_increment.rust.general_utils import safe_get_dirpath
+from version_increment.rust.general_utils import safe_get_dirpath, str_is_empty
 from version_increment.rust.rustlang_utils import do_bump
 from version_increment.tools.types_ import Version
 from tools.git_ops import do_git_commit
@@ -41,7 +41,7 @@ def parse_args():
 
 def main(arg):
     LOGGER.debug(f'args={arg}')
-    to_resolve = arg.dirpath if 'dirpath' in arg and arg.dirpath is not None else os.getcwd()
+    to_resolve = arg.dirpath if 'dirpath' in arg and not str_is_empty(arg.dirpath) else os.getcwd()
     dirpath = safe_get_dirpath(to_resolve)
     LOGGER.debug(f'dirpath={dirpath}')
 
@@ -55,4 +55,3 @@ if __name__ == "__main__":
     log_init(lvl=getattr(logging, args.level))
     LOGGER.debug(f'Starting rust versioning script')
     main(args)
-

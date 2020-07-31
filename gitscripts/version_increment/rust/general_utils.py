@@ -13,6 +13,7 @@ def _resolve_path_symbols(path: str) -> str:
 
 def safe_get_dirpath(dirname: str) -> str:
     resolved = _resolve_path_symbols(dirname)
+    LOGGER.debug(f'resolved file: {resolved}')
     if resolved != '' and os.path.isdir(resolved):
         return resolved
     LOGGER.error(f'Could not resolve directory named {dirname}; returning dirname')
