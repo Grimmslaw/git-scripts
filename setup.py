@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 
 
 setup(
-    name='git-scripts-Grimmslaw',
+    name='git-scripts',
     version='1.0.0',
     author='Wes Rickey',
     author_email='d.wrickey@gmail.com',
