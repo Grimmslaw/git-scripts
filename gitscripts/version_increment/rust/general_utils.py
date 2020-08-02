@@ -1,4 +1,4 @@
-""" General utility functions useful for Rust version incrementing scripts. """
+"""General utility functions useful for Rust version incrementing scripts."""
 
 import os, logging
 
@@ -7,8 +7,7 @@ LOGGER = logging.getLogger(__name__)
 
 def _resolve_path_symbols(path: str) -> str:
     """
-    Safely resolve the given path by expanding the user symbol ('~') and building
-    the absolute path.
+    Safely resolve the given path by expanding the user symbol ('~') and building the absolute path.
 
     :param str path:
         the (possibly-relative) path to be resolved

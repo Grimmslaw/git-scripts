@@ -1,4 +1,4 @@
-""" A module containing methods for setting up and retrieving a project's logger. """
+"""A module containing methods for setting up and retrieving a project's logger."""
 
 import logging
 

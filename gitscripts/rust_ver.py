@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-A command-line script that bumps the version of a Rust project and then adds and commits all unstaged files in
-its repo.
-"""
+"""Command-line script that bumps the version of a Rust project and adds/commits all files in the index."""
 
 import os
 import argparse

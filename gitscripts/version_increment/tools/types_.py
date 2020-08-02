@@ -1,4 +1,4 @@
-""" Types used to accomplish the functionality of the version-increment scripts. """
+"""Types used to accomplish the functionality of the version-increment scripts."""
 
 import logging
 from dataclasses import dataclass

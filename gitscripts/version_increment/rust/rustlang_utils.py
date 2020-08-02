@@ -1,4 +1,4 @@
-""" Utilities useful for dealing/reasoning with Rust-specific aspects of the version-increment script. """
+"""Utilities useful for dealing/reasoning with Rust-specific aspects of the version-increment script."""
 
 import os, logging
 from types import FunctionType
@@ -114,7 +114,7 @@ def do_bump(bump_func: FunctionType, dirpath: str = None) -> Version:
     LOGGER.debug(f'do_bump: dirpath={dirpath}')
     toml_path = get_toml_path(dirpath)
     LOGGER.debug(f'do_bump: toml_path={toml_path}')
-    lineno, old_version = parse_toml(toml_path)
+    _, old_version = parse_toml(toml_path)
 
     LOGGER.debug(f'version={old_version}')
     new_version = bump_func(old_version)

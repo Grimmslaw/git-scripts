@@ -1,4 +1,4 @@
-""" A module containing git-specific operations that may be used by any of the scripts in the larger, outer module. """
+"""A module containing git-specific operations that may be used by any of the scripts in the larger, outer module."""
 
 import os, logging
 from typing import List

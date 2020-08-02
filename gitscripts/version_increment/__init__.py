@@ -1,1 +1,1 @@
-""" Tools that are specific to the version-increment scripts. """
+"""Tools that are specific to the version-increment scripts."""
