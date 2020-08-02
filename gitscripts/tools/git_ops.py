@@ -1,6 +1,7 @@
 """A module containing git-specific operations that may be used by any of the scripts in the larger, outer module."""
 
-import os, logging
+import os
+import logging
 from typing import List
 
 from git import Repo, GitConfigParser, Actor, IndexFile, BaseIndexEntry, Commit

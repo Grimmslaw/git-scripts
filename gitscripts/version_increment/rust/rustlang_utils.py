@@ -1,6 +1,7 @@
 """Utilities useful for dealing/reasoning with Rust-specific aspects of the version-increment script."""
 
-import os, logging
+import os
+import logging
 from types import FunctionType
 from typing import Tuple
 

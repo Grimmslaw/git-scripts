@@ -1,6 +1,7 @@
 """General utility functions useful for Rust version incrementing scripts."""
 
-import os, logging
+import os
+import logging
 
 LOGGER = logging.getLogger(__name__)
 
