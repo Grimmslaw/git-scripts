@@ -1,6 +1,4 @@
-"""
-Types used to accomplish the functionality of the version-increment scripts.
-"""
+""" Types used to accomplish the functionality of the version-increment scripts. """
 
 import logging
 from dataclasses import dataclass
@@ -21,6 +19,12 @@ class Alpha:
     version: int = -1
 
     def __str__(self):
+        """
+        Format the alpha version (if it exists) as `-alpha{version}`
+
+        :return:
+            the formatted string
+        """
         return f'-alpha{self.version}' if self.exists else ''
 
     def incr(self):
@@ -51,6 +55,12 @@ class Version:
     _alpha: Alpha
 
     def __str__(self):
+        """
+        Format the Version using the semantic versioning pattern: `{major}.{minor}.{patch}(-alpha{subpatch})?`
+
+        :return:
+            the formatted Version number
+        """
         return VERSION_PATTERN.replace('x', str(self._major))\
             .replace('y', str(self._minor))\
             .replace('z', str(self._patch))\

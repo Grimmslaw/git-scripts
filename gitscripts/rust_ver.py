@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 """
-A command-line script that bumps the version of a Rust project and then adds and commits all unstaged files in its repo.
+A command-line script that bumps the version of a Rust project and then adds and commits all unstaged files in
+its repo.
 """
 
 import os
@@ -57,5 +58,5 @@ def main(arg):
 if __name__ == "__main__":
     args = parse_args()
     log_init(lvl=getattr(logging, args.level))
-    LOGGER.debug(f'Starting rust versioning script')
+    LOGGER.debug('Starting rust versioning script')
     main(args)

@@ -1,6 +1,4 @@
-"""
-General utility functions useful for Rust version incrementing scripts.
-"""
+""" General utility functions useful for Rust version incrementing scripts. """
 
 import os, logging
 

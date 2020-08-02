@@ -1,6 +1,4 @@
-"""
-Utilities useful for dealing/reasoning with Rust-specific aspects of the version-increment script.
-"""
+""" Utilities useful for dealing/reasoning with Rust-specific aspects of the version-increment script. """
 
 import os, logging
 from types import FunctionType

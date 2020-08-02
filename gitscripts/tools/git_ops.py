@@ -1,11 +1,9 @@
-"""
-A module containing git-specific operations that may be used by any of the scripts in the larger, outer module.
-"""
+""" A module containing git-specific operations that may be used by any of the scripts in the larger, outer module. """
 
 import os, logging
-from typing import List, Union
+from typing import List
 
-from git import Repo, Diff, DiffIndex, GitConfigParser, Actor, IndexFile, BaseIndexEntry, Commit
+from git import Repo, GitConfigParser, Actor, IndexFile, BaseIndexEntry, Commit
 
 LOGGER = logging.getLogger(__name__)
 
@@ -20,12 +18,12 @@ def get_author() -> Actor:
 
     gitconfig = GitConfigParser(os.path.expanduser('~/.gitconfig'))
     sections = gitconfig.sections()
-    assert 'user' in sections, f'No "user" field in .gitconfig'
+    assert 'user' in sections, 'No "user" field in .gitconfig'
     user_items = gitconfig.items('user')
 
     for tup in user_items:
         info[tup[0]] = tup[1]
-    assert 'name' in info and 'email' in info, f'Incomplete information (name and/or email) in .gitconfig'
+    assert 'name' in info and 'email' in info, 'Incomplete information (name and/or email) in .gitconfig'
 
     return Actor(name=info['name'], email=info['email'])
 

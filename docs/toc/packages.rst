@@ -9,7 +9,7 @@ Packages and Modules
     modules/tools/logging_
     modules/version_increment/rust/general_utils
     modules/version_increment/rust/rustlang_utils
-    modules/version_increment/tools/types
+    modules/version_increment/tools/types_
     modules/rust_ver
 
 

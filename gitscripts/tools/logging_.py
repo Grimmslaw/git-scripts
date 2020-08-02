@@ -1,3 +1,5 @@
+""" A module containing methods for setting up and retrieving a project's logger. """
+
 import logging
 
 FORMAT = '[%(asctime)s] [%(module)15s] . [%(funcName)-22s:%(lineno)4s]   %(message)s'
