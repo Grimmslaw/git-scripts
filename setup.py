@@ -7,10 +7,10 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='git-scripts',
-    version='1.0.1',
+    version='1.1.0',
     author='Wes Rickey',
     author_email='d.wrickey@gmail.com',
-    description='',
+    description='Provides scripts useful for extending the functionality of git commands',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/Grimmslaw/git-scripts.git',
