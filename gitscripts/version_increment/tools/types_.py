@@ -162,7 +162,9 @@ class Version:
         return Version(s_major, s_minor, s_patch, s_subpatch)
 
 
-"""The following are convenience methods for increasing their namesake portion of the given version."""
+####
+# The following are convenience methods for increasing their namesake portion of the given version.
+####
 
 
 def major(version: Version) -> Version:

@@ -63,7 +63,7 @@ def _seek_to_depth(filename: str, dirpath: str, maxdepth: int) -> str or None:
     for root, dirs, files in os.walk(dirpath):
         if filename in files:
             return os.path.join(root, filename)
-        elif root.count(os.sep) >= maxdepth:
+        if root.count(os.sep) >= maxdepth:
             return None
     LOGGER.debug(f'filename={filename} not found in dirpath={dirpath} within (total) depth={maxdepth}')
     return None
@@ -82,8 +82,7 @@ def seek_file(filename: str, start_dir: str, maxdepth: int = None) -> str:
     if maxdepth:
         depth = dirpath.count(os.sep) + maxdepth
         return _seek_to_depth(filename, dirpath, depth)
-    else:
-        return _seek_all(filename, dirpath)
+    return _seek_all(filename, dirpath)
 
 
 def write_new_version(new_version: str, lineno: int, cfg_path: str,
