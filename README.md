@@ -1,3 +1,6 @@
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![PyPi Version](http://img.shields.io/pypi/v/git-scripts.svg)](https://pypi.org/project/git-scripts/) 
+
 # git-scripts
 
 This project is a collection of scripts that increase the functionality of git commands.

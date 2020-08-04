@@ -1,42 +1,7 @@
-"""General utility functions useful for Rust version incrementing scripts."""
+"""Utilities for safely dealing with strings, especially those that may or may not be `None` or empty."""
 
-import os
-import logging
-
-LOGGER = logging.getLogger(__name__)
-
-
-def _resolve_path_symbols(path: str) -> str:
-    """
-    Safely resolve the given path by expanding the user symbol ('~') and building the absolute path.
-
-    :param str path:
-        the (possibly-relative) path to be resolved
-    :return:
-        an absolute path from the given path, or an empty string if given path is None or empty
-    """
-    if path is None or path == '':
-        LOGGER.error('Empty string passed in as a path')
-        return ''
-    to_resolve = path if '~' not in path else os.path.expanduser(path)
-    return os.path.abspath(to_resolve)
-
-
-def safe_get_dirpath(dirname: str) -> str:
-    """
-    Safely get the path to the directory with the given name.
-
-    :param str dirname:
-        the directory to resolve the path for
-    :return:
-        the absolute path to the given directory
-    """
-    resolved = _resolve_path_symbols(dirname)
-    LOGGER.debug(f'resolved file: {resolved}')
-    if resolved != '' and os.path.isdir(resolved):
-        return resolved
-    LOGGER.error(f'Could not resolve directory named {dirname}; returning dirname')
-    return dirname
+import re
+from typing import List
 
 
 def safe_strip(str_to_be_stripped: str, chars_to_strip: str = None):
@@ -86,3 +51,8 @@ def str_is_empty(some_str: str) -> bool:
         `True` if the string is None or an empty string, `False` otherwise
     """
     return some_str is None or some_str.strip() == ''
+
+
+def remove_nonalphanumeric(some_str: str, exclusions: List[str] = None) -> str:
+    excl_str = ''.join(exclusions) if exclusions and len(exclusions) > 0 else ''
+    return re.sub(fr'[^\w1-9{excl_str}]+', '', some_str)

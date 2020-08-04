@@ -7,34 +7,12 @@ from typing import Tuple
 
 import in_place
 
-from tools.git_ops import get_head_commit
+from tools.git import get_head_commit
+from version_increment.tools.parsing_utils import parse_config
 from version_increment.tools.types_ import Version
-from version_increment.rust.general_utils import safe_strip, str_is_empty
+from tools.str_utils import str_is_empty, remove_nonalphanumeric
 
 LOGGER = logging.getLogger(__name__)
-
-
-def parse_version_number(version: str) -> Version:
-    """
-    Parse a string representing the version number of the Rust project into a :py:class:`Version` object.
-
-    :param str version:
-        a string representing the version number of the Rust project
-    :return:
-        a Version object representing the project's version number
-    """
-    major, minor, patch_raw = version.replace('"', '').split('.')
-    LOGGER.debug(f'major={major}, minor={minor}, patch_raw={patch_raw}')
-    alpha = None
-    patch_split = patch_raw.split('-')
-    LOGGER.debug(f'patch_split={patch_split}')
-    if len(patch_split) == 2 and 'alpha' in patch_raw:
-        patch, alpha_raw = patch_split
-        alpha = alpha_raw.replace('alpha', '')
-        LOGGER.debug(f'patch={patch}, alpha={alpha}')
-    else:
-        patch = patch_raw
-    return Version.instance(safe_strip(major), safe_strip(minor), safe_strip(patch), safe_strip(alpha))
 
 
 def get_toml_path(dirname: str = None) -> str:
@@ -56,28 +34,26 @@ def get_toml_path(dirname: str = None) -> str:
     return files[files.index(os.path.join(dirpath, 'Cargo.toml'))]
 
 
-def parse_toml(toml_path: str) -> Tuple[int, Version]:
-    """
-    Read the Cargo.toml file of the Rust project and seek and produce it's version number.
+def _list_filter(elem: str) -> bool:
+    val = remove_nonalphanumeric(elem, ['.'])
+    return not str_is_empty(val)
 
-    :param str toml_path:
-        the path to the Rust project's Cargo.toml file, as a string
-    :return:
-        a tuple containing the line number that the version number is on and the version, itself, as a Version object
-    """
-    LOGGER.debug(f'toml_path={toml_path}')
-    assert os.path.isfile(toml_path), f'Not a file: {toml_path}'
-    lineno = -1
-    with open(toml_path, 'r') as toml:
-        for line in toml:
-            lineno += 1
-            if not str_is_empty(line) and line.strip()[0] != '[':
-                split_on_equals = [x.strip() for x in line.split('=', 1)]
-                if len(split_on_equals) == 2 and split_on_equals[0] == 'version':
-                    _, value = split_on_equals
-                    version = parse_version_number(value)
-                    LOGGER.debug(f'version={version}')
-                    return lineno, version
+
+def config_filter_func(line: str, line_number: int = None) -> Tuple[int, bool, Version]:
+    next_line = line_number + 1 if line_number else 0
+    found = False
+    version = None
+    if not str_is_empty(line):
+        line_split: list = [
+            remove_nonalphanumeric(x, ['.'])
+            for x in line.split('=')
+            if _list_filter(x)
+        ]
+        if 'version' in line_split:
+            found = True
+            version_str_index = line_split.index('version')
+            version = Version.from_str(line_split[version_str_index + 1])
+    return next_line, found, version
 
 
 def write_new_version(new_version: str, toml_path: str):
@@ -115,8 +91,8 @@ def do_bump(bump_func: FunctionType, dirpath: str = None) -> Version:
     LOGGER.debug(f'do_bump: dirpath={dirpath}')
     toml_path = get_toml_path(dirpath)
     LOGGER.debug(f'do_bump: toml_path={toml_path}')
-    _, old_version = parse_toml(toml_path)
 
+    lineno, old_version = parse_config(toml_path, config_filter_func)
     LOGGER.debug(f'version={old_version}')
     new_version = bump_func(old_version)
     write_new_version(str(new_version), toml_path)

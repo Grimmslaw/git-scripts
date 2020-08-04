@@ -15,7 +15,6 @@ import sys
 current_dir = os.path.dirname(__file__)
 target_dir = os.path.abspath(os.path.join(current_dir, '..', 'gitscripts'))
 sys.path.insert(0, target_dir)
-print(sys.path)
 
 
 # -- Project information -----------------------------------------------------
