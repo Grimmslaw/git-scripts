@@ -3,6 +3,8 @@
 import logging
 from dataclasses import dataclass
 
+from tools.str_utils import safe_strip
+
 LOGGER = logging.getLogger(__name__)
 VERSION_PATTERN = 'x.y.za'
 
@@ -125,6 +127,20 @@ class Version:
         return self
 
     @classmethod
+    def from_str(cls, version: str) -> 'Version':
+        prepped_major, prepped_minor, patch_raw = version.replace('"', '').split('.')
+        alpha_raw = None
+        patch_split = patch_raw.split('-')
+        if len(patch_split) == 2 and 'alpha' in patch_raw:
+            prepped_patch, alpha_raw = patch_split
+            prepped_alpha = alpha_raw.replace('alpha', '')
+        else:
+            prepped_patch = patch_raw
+            prepped_alpha = alpha_raw
+        return Version.instance(safe_strip(prepped_major), safe_strip(prepped_minor),
+                                safe_strip(prepped_patch), safe_strip(prepped_alpha))
+
+    @classmethod
     def instance(cls, major: str = None, minor: str = None, patch: str = None, alpha: str = None):
         """
         Safely creates a Version object given any of its portions (defaulting to 0)
@@ -139,8 +155,14 @@ class Version:
         s_major = int(major) or 0
         s_minor = int(minor) or 0
         s_patch = int(patch) or 0
-        s_subpatch = Alpha(version=int(alpha.replace('alpha', ''))) if alpha else Alpha()
+        if alpha is None:
+            s_subpatch = Alpha()
+        else:
+            s_subpatch = alpha
         return Version(s_major, s_minor, s_patch, s_subpatch)
+
+
+"""The following are convenience methods for increasing their namesake portion of the given version."""
 
 
 def major(version: Version) -> Version:
