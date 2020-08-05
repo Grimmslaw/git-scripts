@@ -1,12 +1,15 @@
 import argparse
 
 
-def parse_args(project_type: str):
+def parse_args():
     parser = argparse.ArgumentParser(
-        description=f'A tool for incrementing the version number of a {project_type} '
-                    f'project before committing any changes.'
+        description='A tool for incrementing the version number of a project before committing any changes.'
     )
 
+    parser.add_argument(
+        'project', type=str.lower, help='The type of project the target is. Currently only ["python" and "rust" '
+                                        'are available]. "list" here will list the project type options.'
+    )
     parser.add_argument(
         'version', choices=['major', 'minor', 'patch', 'subpatch', 'alpha', 'unalpha'], type=str.lower,
         help='Which part of the version should be incremented: '
