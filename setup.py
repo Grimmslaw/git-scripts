@@ -7,7 +7,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='git-scripts',
-    version='1.1.0',
+    version='2.0.0',
     author='Wes Rickey',
     author_email='d.wrickey@gmail.com',
     description='Provides scripts useful for extending the functionality of git commands',

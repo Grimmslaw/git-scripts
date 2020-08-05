@@ -1,8 +1,10 @@
-(version_increment) tools
-*************************
+tools
+*****
 
 .. toctree::
-    :maxdepth: 4
-    :caption: tools
+	:maxdepth: 4
+	:caption: tools modules
 
-    tools/types
+	tools/lang_utils
+	tools/parsing
+	tools/types_

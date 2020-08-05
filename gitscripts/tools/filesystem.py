@@ -95,4 +95,4 @@ def write_new_version(new_version: str, lineno: int, cfg_path: str,
                 write_func(new_version, fo)
             else:
                 fo.write(line)
-        fo.write('\n')
+        # fo.write('\n')
