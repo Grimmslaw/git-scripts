@@ -5,4 +5,4 @@ Scripts
     :maxdepth: 4
     :caption: Scripts:
 
-    scripts/git-rust
+    scripts/git-ver
