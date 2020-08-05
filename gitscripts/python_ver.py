@@ -10,7 +10,7 @@ from tools.git import do_git_commit
 from tools.logging_ import setup as log_init
 from tools.setup_utils import parse_args
 from tools.str_utils import str_is_empty
-from version_increment.python.lang_utils import do_bump
+from version_increment.python.python import do_bump
 from version_increment.tools.types_ import Version
 
 LOGGER = logging.getLogger(__name__)
