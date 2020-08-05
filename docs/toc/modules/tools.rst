@@ -2,8 +2,11 @@ tools
 *****
 
 .. toctree::
-    :maxdepth: 4
-    :caption: tools
+	:maxdepth: 4
+	:caption: tools packages
 
-    tools/git_ops
-    tools/logging_
+	tools/filesystem
+	tools/git
+	tools/logging_
+	tools/setup_
+	tools/str_utils

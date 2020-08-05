@@ -10,9 +10,9 @@ To install git-scripts, in your terminal, type:
 `pip install git-scripts`
 
 ## Scripts
-* `rust-ver`: a script that reads a Rust project's Cargo.toml file to find its (semantic-versioned) version number,
+* `git-ver`: a script that reads a project's configuration file to find its (semantic-versioned) version number,
 increments the number, and adds any unstaged/untracked files in the working directory and commits them all
-  * usage: `rust_ver.py [-h] [-d DIRPATH] [-l {CRITICAL,ERROR,WARN,INFO,DEBUG,NOTSET} 
+  * usage: `git_ver.py [-h] [-d DIRPATH] [-l {CRITICAL,ERROR,WARN,INFO,DEBUG,NOTSET} 
     {major,minor,patch,subpatch,alpha,unalpha}]`
   * positional argument:
     * indicates the portion of the version number to be incremented; the choices are:
@@ -33,11 +33,11 @@ increments the number, and adds any unstaged/untracked files in the working dire
     * `info` (default)
     * `debug`
     * `notset`
-  * Examples:
-    * `rust-ver major -l debug`
-      * assuming the project's version was `1.2.3-alpha2`, the script would update that to `2.0.0` and commit that
+  * Examples (after aliasing `git_ver.py` to `git-ver`):
+    * `git-ver rust major -l debug`
+      * assuming the rust project's version was `1.2.3-alpha2`, the script would update that to `2.0.0` and commit that
       change and anything else in the index
-    *  `rust-ver unalpha -d ../some-project`
-      * assuming that the project's version was `2.0.1-alpha1` and the current working directory is anything except
-      `some-project`, the script would look into `some-project`, update the version to `2.0.1` and commit that change
-      and anything else in the index
+    *  `git-ver python unalpha -d ../some-project`
+        * assuming that the python project's version was `2.0.1-alpha1` and the current working directory is anything
+       except `some-project`, the script would look into `some-project`, update the version to `2.0.1` and commit
+       that change and anything else in the index

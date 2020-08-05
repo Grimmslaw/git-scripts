@@ -5,12 +5,17 @@ Packages and Modules
     :maxdepth: 4
     :caption: By Module:
 
-    modules/tools/git_ops
+    modules/tools/filesystem
+    modules/tools/git
     modules/tools/logging_
-    modules/version_increment/rust/general_utils
-    modules/version_increment/rust/rustlang_utils
+    modules/tools/setup_
+    modules/tools/str_utils
+    modules/version_increment/python/python
+    modules/version_increment/rust/rust
+    modules/version_increment/tools/lang_utils
+    modules/version_increment/tools/parsing
     modules/version_increment/tools/types_
-    modules/rust_ver
+    modules/git_ver
 
 
 .. toctree::
@@ -19,4 +24,4 @@ Packages and Modules
 
     modules/tools
     modules/version_increment
-    modules/rust_ver
+    modules/git_ver

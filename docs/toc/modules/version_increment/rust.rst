@@ -2,8 +2,7 @@ rust
 ****
 
 .. toctree::
-    :maxdepth: 4
-    :caption: rust
+	:maxdepth: 4
+	:caption: rust modules
 
-    rust/general_utils
-    rust/rustlang_utils
+	rust/rust
